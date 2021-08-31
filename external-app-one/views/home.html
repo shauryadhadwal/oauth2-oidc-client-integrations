@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <title><%= subject %></title>
+    <style>
+      .result-area {
+        border: 1px solid rgb(192, 191, 191);
+        border-radius: 5px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body class="p-2">
+    <div class="container">
+      <h1>Home of <%= subject %></h1>
+      <a href="/" target="" class="btn btn-info">Go to Landing Page</a>
+      <br>
+      <a href="/logout" target="" class="btn btn-info mt-2">Logout</a>
+    </div>
+    <div class="container mt-2">
+      <h2>Test APIs of trusted-app-one</h2>
+      <p>You can check the apis <a href="http://localhost:4001" target="_">here</a></p>
+    </div>
+    <div class="container mt-2">
+      <button class="btn btn-info my-2" id="user-clear-btn">Clear</button>
+      <button class="btn btn-info my-2" id="get-users-btn">Get users</button>
+      <input class="my-2" id="access-token-input" type="text" placeholder="Paste Access token here" />
+      <div id="users-result" class="result-area">Response from <strong>/api/users</strong> will be populated here</div>
+    </div>
+    <div class="container mt-2">
+      <button class="btn btn-info my-2" id="cities-clear-btn">Clear</button>
+      <button class="btn btn-info my-2" id="get-cities-btn">Get cities</button>
+      <div id="cities-result" class="result-area">
+        Response from <strong>/api/cities</strong> will be populated here
+      </div>
+    </div>
+
+    <script>
+      const getUsersEle = document.getElementById('get-users-btn')
+      const userClearEle = document.getElementById('user-clear-btn')
+      const accessTokenEle = document.getElementById('access-token-input')
+      const usersResultEle = document.getElementById('users-result')
+
+      userClearEle.addEventListener('click', () => {
+        usersResultEle.innerHTML = 'Response from <strong>/api/users</strong> will be populated here</div>'
+      })
+
+      getUsersEle.addEventListener('click', () => {
+        accessToken = accessTokenEle.value.toString().trim()
+        fetch('http://localhost:4001/api/users', {
+          method: 'GET',
+          headers: {
+            Authorization: accessToken,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => (usersResultEle.innerText = JSON.stringify(data)))
+      })
+
+      const getCitiesEle = document.getElementById('get-cities-btn')
+      const citiesClearEle = document.getElementById('cities-clear-btn')
+      const citiesResultEle = document.getElementById('cities-result')
+
+      citiesClearEle.addEventListener('click', () => {
+        citiesResultEle.innerHTML = 'Response from <strong>/api/cities</strong> will be populated here'
+      })
+
+      getCitiesEle.addEventListener('click', () => {
+        fetch('http://localhost:4001/api/cities')
+          .then((response) => response.json())
+          .then((data) => (citiesResultEle.innerText = JSON.stringify(data)))
+      })
+    </script>
+  </body>
+</html>

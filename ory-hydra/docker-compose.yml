@@ -1,0 +1,81 @@
+version: '3.7'
+
+services:
+  hydra-migrate:
+    image: oryd/hydra:v1.10.1
+    restart: 'no'
+    networks:
+      - ory-hydra-network
+    command:
+      migrate sql -e --yes
+    environment:
+      - DSN=postgres://hydra:secret@postgresd:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
+    depends_on:
+      - postgresd
+
+  hydra:
+    image: oryd/hydra:v1.10.1
+    restart: 'no'
+    networks:
+      - ory-hydra-network
+    ports:
+      - "4444:4444" # Public port
+      - "4445:4445" # Admin port
+    command:
+      serve all --dangerous-force-http
+    environment:
+      # https://www.ory.sh/hydra/docs/reference/configuration
+      # https://github.com/ory/hydra/blob/aeecfe1c8f/test/e2e/docker-compose.yml
+      - SECRETS_SYSTEM=this-is-the-primary-secret
+      - URLS_LOGIN=http://127.0.0.1:4450/login
+      - URLS_CONSENT=http://127.0.0.1:4450/consent
+      - URLS_LOGOUT=http://127.0.0.1:4450/logout
+      # This is the default endpoint for a successful logout flow
+      # - URLS_POST_LOGOUT_REDIRECT=<value>
+      - URLS_SELF_PUBLIC=http://127.0.0.1:4444 # to public endpoint
+      - URLS_SELF_ISSUER=http://127.0.0.1:4444 # to public endpoint
+      - DSN=postgres://hydra:secret@postgresd:5432/hydra?sslmode=disable&max_conns=20&max_idle_conns=4
+      - SERVE_PUBLIC_PORT=4444
+      - SERVE_PUBLIC_HOST=0.0.0.0
+      - SERVE_PUBLIC_CORS_ENABLED=true
+      - SERVE_ADMIN_PORT=4445
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json_pretty
+      - LOG_LEAK_SENSITIVE_VALUES=true
+      - TRACING_PROVIDER=jaeger
+      - TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL=http://jaeger:5778/sampling
+      - TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS=jaeger:6831
+      - TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE=const
+      - TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE=1
+    depends_on:
+      - postgresd
+      - jaeger
+
+  postgresd:
+    image: postgres:13
+    restart: 'no'
+    networks:
+      - ory-hydra-network
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=hydra
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=hydra
+    volumes:
+      - /var/tmp/docker/volumes:/var/lib/postgresql-local/data
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.7.0
+    restart: 'no'
+    networks:
+      - ory-hydra-network
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 16686:16686 # Web App GUI to see traces
+
+networks:
+  ory-hydra-network:
+    name: ory-hydra-net

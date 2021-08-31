@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <title><%= subject %></title>
+  </head>
+  <body>
+    <div class="container mt-2">
+      <h1>Callback Page</h1>
+      <div><strong>Access Token</strong> - <%= accessToken %></div>
+      <br>
+      <div><strong>Refresh Token</strong> - <%= refreshToken %></div>
+      <br>
+      <div><strong>Id Token</strong> - <%= idToken %></div>
+      <br>
+      <a href="http://127.0.0.1:<%= port %>/home">Go to Home Page</a>
+    </div>
+  </body>
+</html>
