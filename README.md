@@ -1,4 +1,6 @@
-# Ory Hydra Samples
+# OAuth2.0 & OIDC integrations with clients using different grant flows
+Will be using Ory Hydra as an Identity and Authorization server to mimic IdP service. You can feel free to use okta or AuthO etc. as well.
+
 ### Authorization Code Grant Flow
 ***external-app-one*** A server side node express application demonstrating [authorization code grant flow](https://developer.okta.com/blog/2018/04/10/oauth-authorization-code-grant-type)
 
