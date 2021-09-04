@@ -1,13 +1,13 @@
 {
-  "name": "appone",
+  "name": "external-app-two",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "format:prettier": "prettier --write \"./**/*.{js,html,css}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",

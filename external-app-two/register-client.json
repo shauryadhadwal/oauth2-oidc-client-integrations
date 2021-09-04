@@ -1,6 +1,6 @@
 {
-	"client_id": "external-app-one",
-	"client_name": "external-app-one",
+	"client_id": "external-app-two",
+	"client_name": "external-app-two",
 	"redirect_uris": [
       "http://127.0.0.1:5001/callback"
     ],
