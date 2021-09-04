@@ -1,7 +1,7 @@
 {
 	"client_id": "external-app-one",
 	"client_name": "external-app-one",
-  "client_secret": "asdasdh1g213asd",
+  "client_secret": "RoHxFPJtvvLJoar2whfjOEIvQK",
 	"redirect_uris": [
       "http://127.0.0.1:5001/callback"
     ],
@@ -18,7 +18,7 @@
       "code id_token",
       "id_token token"
     ],
-	"scope": "offline openid",
-	"audience": [],
+	"scope": "offline openid profile",
+	"audience": ["https://localhost:4001", "https://127.0.0.1:4001"],
 	"token_endpoint_auth_method": "client_secret_basic"
 }

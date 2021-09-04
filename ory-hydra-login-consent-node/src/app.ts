@@ -1,3 +1,6 @@
+process.env.HYDRA_ADMIN_URL = 'http://127.0.0.1:4445'
+process.env.CONFORMITY_FAKE_CLAIMS = '1'
+
 import express, { NextFunction, Response, Request } from 'express'
 import path from 'path'
 import logger from 'morgan'
@@ -8,6 +11,7 @@ import routes from './routes'
 import login from './routes/login'
 import logout from './routes/logout'
 import consent from './routes/consent'
+
 
 const app = express()
 
