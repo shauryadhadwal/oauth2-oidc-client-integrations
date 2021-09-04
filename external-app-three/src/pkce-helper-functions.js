@@ -30,3 +30,9 @@ async function pkceChallengeFromVerifier(v) {
   hashed = await sha256(v);
   return base64urlencode(hashed);
 }
+
+export const getVerifierChallengeSet = async () => {
+  const verifier = generateRandomString()
+  const challenge = await pkceChallengeFromVerifier(verifier)
+  return [verifier, challege]
+}
