@@ -8,16 +8,14 @@
       "http://127.0.0.1:5002"
     ],
 	"grant_types": [
-      "implicit",
-      "authorization_code",
-      "refresh_token"
+      "implicit"
     ],
 	"response_types": [
     "id_token",
     "token",  
-    "id_token token"
+    "token id_token"
     ],
-	"scope": "offline_access offline openid",
+	"scope": "openid",
 	"audience": ["http://127.0.0.1:5002", "http://localhost:5002"],
 	"token_endpoint_auth_method": "none"
 }

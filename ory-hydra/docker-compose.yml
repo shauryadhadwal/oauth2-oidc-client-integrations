@@ -47,6 +47,7 @@ services:
       - TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS=jaeger:6831
       - TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE=const
       - TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE=1
+      - OAUTH2_EXPOSE_INTERNAL_ERRORS=true
     depends_on:
       - postgresd
       - jaeger

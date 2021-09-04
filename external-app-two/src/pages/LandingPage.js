@@ -1,11 +1,18 @@
-import { oauth2Client } from '../oauth2'
+import { generateRandomString, generateStateAndSave, oauth2Client } from '../oauth2'
 
 function Page() {
+
+  // Very Important
+  // Require state as well as nonce for requesting an id_token
   const onLoginClick = () => {
-    const uri = oauth2Client.token.getUri({query: {
-      response_type: 'token' //TODO: id_token not returned
-    }})
-    console.log(uri)
+    const uri = oauth2Client.token.getUri({
+      query: {
+        response_type: 'token id_token',
+        state: generateStateAndSave(),
+        nonce: generateRandomString(),
+      },
+    })
+    console.info(uri)
     window.location = uri
   }
 
