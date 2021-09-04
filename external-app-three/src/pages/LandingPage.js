@@ -1,12 +1,15 @@
-import { oauth2Client } from '../oauth2'
+import { generateStateAndSave, oauth2Client } from '../oauth2'
+import { generateVerifierChallengeSetAndSave } from '../pkce'
 
 function Page() {
-  const onLoginClick = () => {
-    const uri = oauth2Client.token.getUri({query: {
-      response_type: 'token' //TODO: id_token not returned
-    }})
-    console.log(uri)
-    window.location = uri
+  const onLoginClick = async () => {
+    window.location = oauth2Client.code.getUri({
+      query: {
+        state: generateStateAndSave(),
+        code_challenge: await generateVerifierChallengeSetAndSave(),
+        code_challenge_method: 'S256',
+      },
+    })
   }
 
   return (

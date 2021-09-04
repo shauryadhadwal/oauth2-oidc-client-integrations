@@ -27,12 +27,17 @@ function base64urlencode(str) {
 
 // Return the base64-urlencoded sha256 hash for the PKCE challenge
 async function pkceChallengeFromVerifier(v) {
-  hashed = await sha256(v);
+  const hashed = await sha256(v);
   return base64urlencode(hashed);
 }
 
-export const getVerifierChallengeSet = async () => {
+export const generateVerifierChallengeSetAndSave = async () => {
   const verifier = generateRandomString()
   const challenge = await pkceChallengeFromVerifier(verifier)
-  return [verifier, challege]
+  localStorage.setItem('pkce_code_verifier', verifier)
+  return challenge
+}
+
+export const getSavedPKCEVerifier = () => {
+  return localStorage.getItem('pkce_code_verifier')
 }
