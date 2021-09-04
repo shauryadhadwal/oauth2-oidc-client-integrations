@@ -1,6 +1,6 @@
 import { useHistory, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { oauth2Client, options } from '../oauth2'
+import { oauth2Client, options, saveAccessToken, saveIdToken, saveRefreshToken } from '../oauth2'
 import { getSavedPKCEVerifier } from '../pkce'
 
 function Page() {
@@ -37,6 +37,9 @@ function Page() {
         setAccessToken(data.accessToken)
         setIdToken(data.data.id_token)
         setRefreshToken(data.refreshToken)
+        saveAccessToken(data.accessToken)
+        saveRefreshToken(data.refreshToken)
+        saveIdToken(data.data.id_token)
       })
 
     // Using Fetch -------------------------------------------------------

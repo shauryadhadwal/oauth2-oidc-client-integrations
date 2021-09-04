@@ -27,3 +27,22 @@ export const getSavedState = () => {
   return localStorage.getItem('ephemeral_state')
 }
 
+export const saveAccessToken = (token) => {
+  localStorage.setItem('access_token', token)
+}
+
+export const getSavedAccessToken = () => localStorage.getItem('access_token')
+
+export const saveRefreshToken = (token) => {
+  localStorage.setItem('refresh_token', token)
+}
+
+export const getSavedRefreshToken = () => localStorage.getItem('refresh_token')
+
+export const saveIdToken = (token) => {
+  localStorage.setItem('id_token', token)
+}
+
+export const getSavedIdToken = () => localStorage.getItem('id_token')
+
+

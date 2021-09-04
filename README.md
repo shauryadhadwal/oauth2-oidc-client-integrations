@@ -8,6 +8,10 @@ Will be using Ory Hydra as an Identity and Authorization server to mimic IdP ser
 
 ***external-app-two*** A node express backend with a react frontend demonstrating [implicit flow grant](https://developer.okta.com/blog/2018/05/24/what-is-the-oauth2-implicit-grant-type)
 
+### Authorization Code Grant Flow with PKCE
+
+***external-app-three*** A React.js App demonstrating [Auth Code with PKCE](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce)
+
 ### Resources
 
 [/authorize Endpoint](https://auth0.com/docs/authorization/protocols/protocol-oauth2#authorization-endpoint)
