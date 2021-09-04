@@ -15,8 +15,9 @@
 	"response_types": [
       "code",
       "token",
-      "code id_token",
-      "id_token token"
+      "id_token",
+      "code id_to ken",
+      "token id_token"
     ],
 	"scope": "offline openid profile",
 	"audience": ["https://localhost:4001", "https://127.0.0.1:4001"],

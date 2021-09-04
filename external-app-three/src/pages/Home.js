@@ -10,7 +10,7 @@ function Page() {
   const onLogoutClick = () => {
     const idToken = ''
     const accessToken = ''
-    const postLogoutUri = `http://127.0.0.1:5002}`
+    const postLogoutUri = `http://127.0.0.1:5003`
     const uri = `http://127.0.0.1:4444/oauth2/sessions/logout?post_logout_redirect_uri=${postLogoutUri}&id_token_hint=${idToken}`
   }
 

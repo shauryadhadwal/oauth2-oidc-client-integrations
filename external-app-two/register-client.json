@@ -16,6 +16,6 @@
     "token id_token"
     ],
 	"scope": "openid",
-	"audience": ["http://127.0.0.1:5002", "http://localhost:5002"],
+	"audience": ["https://localhost:4001", "https://127.0.0.1:4001"],
 	"token_endpoint_auth_method": "none"
 }
