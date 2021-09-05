@@ -20,10 +20,9 @@ function Page() {
   }
 
   const onLogoutClick = () => {
-    const idToken = ''
-    const accessToken = ''
     const postLogoutUri = `http://127.0.0.1:5003`
     const uri = `http://127.0.0.1:4444/oauth2/sessions/logout?post_logout_redirect_uri=${postLogoutUri}&id_token_hint=${idToken}`
+    window.location = uri
   }
 
   const onRefreshClick = () => {
@@ -55,10 +54,6 @@ function Page() {
     <div className="container mt-2">
       <h1>Welcome to the Home Page of external-app-three</h1>
       <div className="mt-2"></div>
-      <button className="btn btn-info mt-5" onClick={onRefreshClick}>
-        Refresh Access Token
-      </button>
-      <br />
       <button className="btn btn-info mt-1" onClick={onLandingPageClick}>
         Go to Landing Page
       </button>
@@ -66,6 +61,11 @@ function Page() {
       <button className="btn btn-info mt-1" onClick={onLogoutClick}>
         Logout
       </button>
+      <br />
+      <button className="btn btn-info mt-5" onClick={onRefreshClick}>
+        Refresh Access Token
+      </button>
+      <br />
       <div className="mt-2">Access Token - {accessToken}</div>
       <div className="mt-2">Id Token - {idToken}</div>
       <div className="mt-2">Refresh Token - {refreshToken}</div>
