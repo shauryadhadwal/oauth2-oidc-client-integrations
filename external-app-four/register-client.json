@@ -1,0 +1,24 @@
+{
+	"client_id": "external-app-four",
+	"client_name": "external-app-four",
+	"redirect_uris": [
+      "http://127.0.0.1:5004/callback"
+    ],
+	"post_logout_redirect_uris": [
+      "http://127.0.0.1:5004"
+    ],
+	"grant_types": [
+      "authorization_code",
+      "refresh_token"
+
+    ],
+	"response_types": [
+    "code",
+    "token",
+    "id_token",
+    "token id_token"
+    ],
+	"scope": "openid offline",
+	"audience": ["https://localhost:4001", "https://127.0.0.1:4001"],
+	"token_endpoint_auth_method": "none"
+}
