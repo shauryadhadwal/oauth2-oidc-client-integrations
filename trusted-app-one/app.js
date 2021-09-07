@@ -62,6 +62,10 @@ app.get('/api/cities', (req, res, next) => {
   res.json({ data: ['Jaipur', 'Sundhiya', 'Amb'] })
 })
 
+app.get('/api/mock-unauthorized-access', (req, res, next) => {
+  res.status(401).json({message: 'Access token is invalid or expired'})
+})
+
 app.use((err, req, res, next) => {
   if (!err.message) {
     err.message = 'System Error'

@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { getSavedAccessToken, getSavedIdToken, getSavedRefreshToken, oauth2Client, options, saveAccessToken, saveIdToken, saveRefreshToken } from '../oauth2'
+import {
+  getSavedAccessToken,
+  getSavedIdToken,
+  getSavedRefreshToken,
+  oauth2Client,
+  options,
+  saveAccessToken,
+  saveIdToken,
+  saveRefreshToken,
+} from '../oauth2'
+
+import http from '../http'
 
 function Page() {
   const history = useHistory()
@@ -50,6 +61,17 @@ function Page() {
       })
   }
 
+  const onMockApiClick = () => {
+    http.get('http://127.0.0.1:4001/api/mock-unauthorized-access', {
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+      },
+    }).then(response => {
+      console.info('Mock API call executed')
+      window.location = ''
+    })
+  }
+
   return (
     <div className="container mt-2">
       <h1>Welcome to the Home Page of external-app-four</h1>
@@ -69,6 +91,9 @@ function Page() {
       <div className="mt-2">Access Token - {accessToken}</div>
       <div className="mt-2">Id Token - {idToken}</div>
       <div className="mt-2">Refresh Token - {refreshToken}</div>
+      <button className="btn btn-info mt-5" onClick={onMockApiClick}>
+        /api/mock-unauthorized-access
+      </button>
     </div>
   )
 }

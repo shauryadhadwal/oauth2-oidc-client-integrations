@@ -1,4 +1,4 @@
-# OAuth2.0 & OIDC integrations with clients using different grant flows
+## OAuth2.0 & OIDC integrations with clients using different grant flows
 Will be using Ory Hydra as an Identity and Authorization server to mimic IdP service. You can feel free to use okta or AuthO etc. as well.
 
 ### Authorization Code Grant Flow
@@ -11,6 +11,12 @@ Will be using Ory Hydra as an Identity and Authorization server to mimic IdP ser
 ### Authorization Code Grant Flow with PKCE
 
 ***external-app-three*** A React.js App demonstrating [Auth Code with PKCE](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce)
+
+### Auto refresh tokens when 401 response status
+
+***external-app-four*** A React.js App demonstrating [Auth Code with PKCE](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce). 
+Using axios library to catch 401 response code in interceptors and initiating a refresh token request.
+
 
 ### Resources
 

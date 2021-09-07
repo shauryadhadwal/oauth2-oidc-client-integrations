@@ -20,29 +20,29 @@ function Page() {
       code_verifier: verifier,
       grant_type: 'authorization_code',
     }
-    const body = Object.keys(data)
-      .map((key) => `${key}=${encodeURIComponent(data[key])}`)
-      .join('&')
-
-    const url = options.accessTokenUri
-
+    
     oauth2Client.code
-      .getToken(window.location.href, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: data,
-      })
-      .then((data) => {
-        setAccessToken(data.accessToken)
-        setIdToken(data.data.id_token)
-        setRefreshToken(data.refreshToken)
-        saveAccessToken(data.accessToken)
-        saveRefreshToken(data.refreshToken)
-        saveIdToken(data.data.id_token)
-      })
-
+    .getToken(window.location.href, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: data,
+    })
+    .then((data) => {
+      setAccessToken(data.accessToken)
+      setIdToken(data.data.id_token)
+      setRefreshToken(data.refreshToken)
+      saveAccessToken(data.accessToken)
+      saveRefreshToken(data.refreshToken)
+      saveIdToken(data.data.id_token)
+    })
+    
+    
     // Using Fetch -------------------------------------------------------
+    // const body = Object.keys(data)
+    //   .map((key) => `${key}=${encodeURIComponent(data[key])}`)
+    //   .join('&')
+    // const url = options.accessTokenUri
     // fetch(url, {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
