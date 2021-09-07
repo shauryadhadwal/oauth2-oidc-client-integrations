@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "http-server": "http-server -p 5003 -P http://127.0.0.1:5003? build"
+    "http-server": "npm run build && http-server -p 5003 -P http://127.0.0.1:5003? build"
   },
   "eslintConfig": {
     "extends": [

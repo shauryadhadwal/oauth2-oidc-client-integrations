@@ -52,7 +52,7 @@
         fetch('http://localhost:4001/api/users', {
           method: 'GET',
           headers: {
-            Authorization: accessToken,
+            Authorization: 'Bearer ' + accessToken,
           },
         })
           .then((response) => response.json())

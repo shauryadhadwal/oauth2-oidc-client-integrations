@@ -1,9 +1,8 @@
 const clientOAuth2 = require('client-oauth2')
-const dotenv = require('dotenv')
+const dotenv = require('dotenv').config()
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const app = express()
-dotenv.config()
 const path = require('path')
 const axios = require('axios')
 const qs = require('querystring')
@@ -20,24 +19,33 @@ app.use(cookieParser())
 
 // Validate token
 const routeGuard = (req, res, next) => {
-  const accessToken = req.headers.authorization
+  let accessToken = undefined
+
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    accessToken = req.headers.authorization.split(' ')[1]
+  }
 
   if (!accessToken) {
-    throw new Error('Access Token Missing')
+    return res.status(400).json({ message: 'Access Token Missing.' })
   }
+
   const body = qs.stringify({ token: accessToken }) //token is the accepted property name
-  return axios.post(`${HYDRA_ADMIN_URL}/oauth2/introspect`, body, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }).then((result) => {
-    if (!result.data.active) {
-      next(new Error('Access Token is invalid or must have expired.'))
-    }
-    next()
-  }).catch(err => {
-    next(new Error('An error occurred in route guard'))
-  })
+  
+  return axios
+    .post(`${HYDRA_ADMIN_URL}/oauth2/introspect`, body, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+    .then((result) => {
+      if (!result.data.active) {
+        return res.status(401).json({ message: 'Access Token is invalid or must have expired.' })
+      }
+      next()
+    })
+    .catch((err) => {
+      next(new Error('An error occurred in route guard'))
+    })
 }
 
 app.get('/', (req, res, next) => {
