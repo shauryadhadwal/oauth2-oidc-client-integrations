@@ -26,6 +26,7 @@ Using axios library to catch 401 response code in interceptors and initiating a 
 2. Run `docker-compose up` in ory-hydra folder
 3. Run `npm run start` in trusted-app-one folder
 4. Check the npm scripts in any of the external-app folders you want to test
+5. For client registration with ory-hydra, register-client.json has been provided in the folders.
 
 ## Resources
 
