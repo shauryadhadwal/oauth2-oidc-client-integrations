@@ -34,10 +34,10 @@ async function pkceChallengeFromVerifier(v) {
 export const generateVerifierChallengeSetAndSave = async () => {
   const verifier = generateRandomString()
   const challenge = await pkceChallengeFromVerifier(verifier)
-  localStorage.setItem('pkce_code_verifier', verifier)
+  sessionStorage.setItem('pkce_code_verifier', verifier)
   return challenge
 }
 
 export const getSavedPKCEVerifier = () => {
-  return localStorage.getItem('pkce_code_verifier')
+  return sessionStorage.getItem('pkce_code_verifier')
 }

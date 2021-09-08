@@ -3,13 +3,18 @@ import { generateVerifierChallengeSetAndSave } from '../pkce'
 
 function Page() {
   const onLoginClick = async () => {
-    window.location = oauth2Client.code.getUri({
-      query: {
-        state: generateStateAndSave(),
-        code_challenge: await generateVerifierChallengeSetAndSave(),
-        code_challenge_method: 'S256',
-      },
-    })
+    const state = generateStateAndSave()
+    const code_challenge = await generateVerifierChallengeSetAndSave()
+    setTimeout(() => {
+      window.location = oauth2Client.code.getUri({
+        query: {
+          state: state,
+          code_challenge: code_challenge,
+          code_challenge_method: 'S256',
+          audience: 'https://localhost:4001 https://127.0.0.1:4001',
+        },
+      })
+    }, 0)
   }
 
   return (

@@ -20,24 +20,25 @@ function Page() {
       code_verifier: verifier,
       grant_type: 'authorization_code',
     }
-    
-    oauth2Client.code
-    .getToken(window.location.href, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data,
-    })
-    .then((data) => {
-      setAccessToken(data.accessToken)
-      setIdToken(data.data.id_token)
-      setRefreshToken(data.refreshToken)
-      saveAccessToken(data.accessToken)
-      saveRefreshToken(data.refreshToken)
-      saveIdToken(data.data.id_token)
-    })
-    
-    
+
+    setTimeout(() => {
+      oauth2Client.code
+        .getToken(window.location.href, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data,
+        })
+        .then((data) => {
+          setAccessToken(data.accessToken)
+          setIdToken(data.data.id_token)
+          setRefreshToken(data.refreshToken)
+          saveAccessToken(data.accessToken)
+          saveRefreshToken(data.refreshToken)
+          saveIdToken(data.data.id_token)
+        })
+    }, 0)
+
     // Using Fetch -------------------------------------------------------
     // const body = Object.keys(data)
     //   .map((key) => `${key}=${encodeURIComponent(data[key])}`)

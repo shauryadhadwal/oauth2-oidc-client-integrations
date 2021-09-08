@@ -19,30 +19,30 @@ export const oauth2Client = new clientOAuth2(options)
 
 export const generateStateAndSave = () => {
   const state = generateRandomString()
-  localStorage.setItem('ephemeral_state', state)
+  sessionStorage.setItem('ephemeral_state', state)
   return state
 }
 
 export const getSavedState = () => {
-  return localStorage.getItem('ephemeral_state')
+  return sessionStorage.getItem('ephemeral_state')
 }
 
 export const saveAccessToken = (token) => {
-  localStorage.setItem('access_token', token)
+  sessionStorage.setItem('access_token', token)
 }
 
-export const getSavedAccessToken = () => localStorage.getItem('access_token')
+export const getSavedAccessToken = () => sessionStorage.getItem('access_token')
 
 export const saveRefreshToken = (token) => {
-  localStorage.setItem('refresh_token', token)
+  sessionStorage.setItem('refresh_token', token)
 }
 
-export const getSavedRefreshToken = () => localStorage.getItem('refresh_token')
+export const getSavedRefreshToken = () => sessionStorage.getItem('refresh_token')
 
 export const saveIdToken = (token) => {
-  localStorage.setItem('id_token', token)
+  sessionStorage.setItem('id_token', token)
 }
 
-export const getSavedIdToken = () => localStorage.getItem('id_token')
+export const getSavedIdToken = () => sessionStorage.getItem('id_token')
 
 

@@ -35,10 +35,12 @@ Accepts `access_tokens` and validates them at `/introspect` endpoint of Authoriz
 
 1. You need docker and docker-compose
 2. Run `docker-compose up` in ory-hydra folder
-3. Run `npm run start` in trusted-app-one folder
-4. Check the npm scripts in any of the external-app folders you want to test
-5. For client registration with ory-hydra, register-client.json has been provided in the folders.
+3. Run `npm run build && npm start` in ory-hydra-login-consent-node 
+4. Run `npm run start` in trusted-app-one folder
+5. Check the npm scripts in any of the external-app folders you want to test
+6. For client registration with ory-hydra, register-client.json has been provided in the folders.
 
 ## Resources
 
 [Which Auth Grant Flow to use?](https://auth0.com/docs/authorization/flows/which-oauth-2-0-flow-should-i-use#can-i-try-the-endpoints-before-i-implement-my-application-)
+[/token endpoint](https://connect2id.com/products/server/docs/api/token) 

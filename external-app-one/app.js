@@ -44,7 +44,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  const uri = oauth2Client.code.getUri()
+  const uri = oauth2Client.code.getUri({query: {
+    audience: "https://localhost:4001 https://127.0.0.1:4001"
+  }})
   res.redirect(uri)
 })
 
