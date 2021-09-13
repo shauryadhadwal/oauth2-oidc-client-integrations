@@ -5,7 +5,7 @@ Will be using Ory Hydra as an Identity and Authorization server to mimic IdP ser
 > Not following any best practices or coding guidelines.
 
 These samples can be used in different contexts:
-1. You are building an Identity Provider for you organization(THE COMPANY) using ory hydra (could be others like okta etc.). Think of trusted-apps as your own applications/apis (like Google Services) and external-apps as 3rd party clients who want to use access your apis.
+1. You are building an Identity Provider for you organization(THE COMPANY) using ory hydra (could be others like okta etc.). Think of trusted-apps as your own applications/apis (like Google Services) and external-apps as 3rd party clients who want to access your apis.
 2. Your organization (THE COMPANY) is using the services of an external-app (SAAS, PAAS) and have integrated it into your trusted-app, a user can go to the external-app from your trusted-app without filling his/her credentials again on external-app and start using it straight away thanks to Single Sign On.
 
 
@@ -23,7 +23,7 @@ These samples can be used in different contexts:
 ***external-app-three*** A React.js App demonstrating [Auth Code with PKCE](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce)
 - Public Client
 
-### Auto refresh tokens when 401 response status
+### Auto-refresh tokens on receiving 401 HTTP status
 
 ***external-app-four*** A React.js App demonstrating [Auth Code with PKCE](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce). 
 Using axios library to catch 401 response code in interceptors and initiating a refresh token request.
