@@ -36,7 +36,7 @@ Using axios library to catch 401 response code in interceptors and initiating a 
 Accepts `access_tokens` and validates them at `/introspect` endpoint of Authorization Server
 
 
-## How to get started?
+### How to get started?
 
 1. You need docker and docker-compose
 2. Run `docker-compose up` in ory-hydra folder
@@ -44,6 +44,10 @@ Accepts `access_tokens` and validates them at `/introspect` endpoint of Authoriz
 4. Run `npm run start` in trusted-app-one folder
 5. Check the npm scripts in any of the external-app folders you want to test
 6. For client registration with ory-hydra, register-client.json has been provided in the folders.
+
+### TODOs
+1. Front-channel Logout
+2. Back-channel Logout
 
 ## Resources
 
