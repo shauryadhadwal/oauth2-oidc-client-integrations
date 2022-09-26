@@ -5,8 +5,14 @@ Will be using Ory Hydra as an Identity and Authorization server to mimic IdP ser
 > Not following any best practices or coding guidelines.
 
 These samples can be used in different contexts:
-1. You are building an Identity Provider for you organization(THE COMPANY) using ory hydra (could be others like okta etc.). Think of trusted-apps as your own applications/apis (like Google Services) and external-apps as 3rd party clients who want to access your apis.
+1. You are building an Identity Provider for you organization(THE COMPANY) using ory hydra (could be others like okta etc.). Think of ```trusted-apps``` as your own applications/apis (like Google Services) and ```external-apps``` as 3rd party clients who want to access your apis.
 2. Your organization (THE COMPANY) is using the services of an external-app (SAAS, PAAS) and have integrated it into your trusted-app, a user can go to the external-app from your trusted-app without filling his/her credentials again on external-app and start using it straight away thanks to Single Sign On.
+
+## Setting up Ory Hydra quickly
+You can follow the steps laid out here on the [Ory Hydra Documentation](https://www.ory.sh/docs/hydra/5min-tutorial)
+
+## Authorization Grant Flows
+If you are new to this, then you can read about it [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/which-oauth-2-0-flow-should-i-use)
 
 
 ### Authorization Code Grant Flow
