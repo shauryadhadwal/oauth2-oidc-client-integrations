@@ -99,7 +99,7 @@ app.get('/callback', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-  res.render('home.html', { subject: APP_NAME })
+  res.render('home.html', { subject: APP_NAME, basePath: BASE_PATH })
 })
 
 app.listen(PORT, () => {
