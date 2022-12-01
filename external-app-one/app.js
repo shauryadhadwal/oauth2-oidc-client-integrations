@@ -75,11 +75,9 @@ app.get('/callback', (req, res) => {
   // Received code in req
   console.info(`Received code from auth server: ${req.query.code}`)
   // Now exchange code for tokens
+  console.info(`Original Url: ${req.originalUrl}`)
   oauth2Client.code
     .getToken(req.originalUrl, {
-      headers: {
-        'User-Agent': 'macbook',
-      },
     })
     .then(function (user) {
       return res
