@@ -11,7 +11,7 @@ const BASE_PATH = process.env.BASE_PATH || ''
 const AUDIENCE = process.env.AUDIENCE || 'http://localhost:4001 http://127.0.0.1:4001'
 const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
 const SERVER_HOSTED_URI = process.env.SERVER_HOSTED_URI
-const REDIRECT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}{BASE_PATH}/callback` : `http://127.0.0.1:${PORT}/callback`
+const REDIRECT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}/callback` : `http://127.0.0.1:${PORT}/callback`
 const POST_LOGOUT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}` : `http://127.0.0.1:${PORT}`
 
 app.set('views', path.join(__dirname, 'views'))
