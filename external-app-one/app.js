@@ -13,6 +13,7 @@ const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
 const SERVER_HOSTED_URI = process.env.SERVER_HOSTED_URI
 const REDIRECT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}/callback` : `http://127.0.0.1:${PORT}/callback`
 const POST_LOGOUT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}` : `http://127.0.0.1:${PORT}`
+const DOMAIN_FOR_COOKIES = process.env.DOMAIN_FOR_COOKIES || '127.0.0.1'
 
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
@@ -36,7 +37,7 @@ const oauth2Client = new clientOAuth2({
 const defaultTokenOpts = () => ({
   secure: true,
   path: '/',
-  domain: SERVER_HOSTED_URI || '127.0.0.1',
+  domain: DOMAIN_FOR_COOKIES,
   sameSite: 'Lax',
 })
 
@@ -66,7 +67,6 @@ app.get('/login', (req, res) => {
  */
 app.get('/logout', (req, res) => {
   const idToken = req.cookies[`${APP_NAME}_id_token`]
-  const accessToken = req.cookies[`${APP_NAME}_access_token`]
   const uri = `${oauthServerApi}/oauth2/sessions/logout?post_logout_redirect_uri=${POST_LOGOUT_URI}&id_token_hint=${idToken}`
   res.redirect(uri)
 })
