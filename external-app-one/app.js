@@ -77,7 +77,7 @@ app.get('/callback', (req, res) => {
   // Now exchange code for tokens
   console.info(`Original Url: ${req.originalUrl}`)
   oauth2Client.code
-    .getToken(req.originalUrl, {
+    .getToken(`${BASE_PATH}${req.originalUrl}`, {
     })
     .then(function (user) {
       return res
