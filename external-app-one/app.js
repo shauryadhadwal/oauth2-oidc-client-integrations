@@ -7,7 +7,7 @@ dotenv.config()
 const path = require('path')
 const PORT = 5001
 const APP_NAME = process.env.APP_NAME || 'external-app-one'
-
+const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -17,13 +17,13 @@ app.set('view engine', 'html')
  * clientOAuth2 Library uses
  * "token_endpoint_auth_method": "client_secret_basic"
  * */
-const CLIENT_SECRET = 'RoHxFPJtvvLJoar2whfjOEIvQK'
+const CLIENT_SECRET = process.env.CLIENT_SECRET || 'RoHxFPJtvvLJoar2whfjOEIvQK'
 const oauth2Client = new clientOAuth2({
   clientId: APP_NAME,
   clientSecret: CLIENT_SECRET,
-  accessTokenUri: 'http://127.0.0.1:4444/oauth2/token',
-  authorizationUri: 'http://127.0.0.1:4444/oauth2/auth',
-  redirectUri: `http://127.0.0.1:${PORT}/callback`,
+  accessTokenUri: `${oauthServerApi}/oauth2/token`,
+  authorizationUri: `${oauthServerApi}/oauth2/auth`,
+  redirectUri: process.env.REDIRECT_URI || `http://127.0.0.1:${PORT}/callback`,
   scopes: ['openid offline'],
   state: 'randomly-generated-everytime',
 })
@@ -44,9 +44,15 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  const uri = oauth2Client.code.getUri({query: {
-    audience: "https://localhost:4001 https://127.0.0.1:4001"
-  }})
+  // Audience is the trusted app one which has default 4001 port
+  const uri = oauth2Client.code.getUri({
+    query: {
+      audience: 'https://localhost:4001 https://127.0.0.1:4001',
+    },
+    headers: {
+      'User-Agent': 'macbook',
+    },
+  })
   res.redirect(uri)
 })
 
@@ -59,7 +65,7 @@ app.get('/logout', (req, res) => {
   const idToken = req.cookies[`${APP_NAME}_id_token`]
   const accessToken = req.cookies[`${APP_NAME}_access_token`]
   const postLogoutUri = `http://127.0.0.1:${PORT}`
-  const uri = `http://127.0.0.1:4444/oauth2/sessions/logout?post_logout_redirect_uri=${postLogoutUri}&id_token_hint=${idToken}`
+  const uri = `${oauthServerApi}/oauth2/sessions/logout?post_logout_redirect_uri=${postLogoutUri}&id_token_hint=${idToken}`
   res.redirect(uri)
 })
 
@@ -68,7 +74,11 @@ app.get('/callback', (req, res) => {
   console.info(`Received code from auth server: ${req.query.code}`)
   // Now exchange code for tokens
   oauth2Client.code
-    .getToken(req.originalUrl, {})
+    .getToken(req.originalUrl, {
+      headers: {
+        'User-Agent': 'macbook',
+      },
+    })
     .then(function (user) {
       return res
         .cookie(APP_NAME + '_access_token', user.accessToken, defaultTokenOpts())
