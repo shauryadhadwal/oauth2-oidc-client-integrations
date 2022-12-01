@@ -11,7 +11,7 @@ const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-
+const BASE_PATH = process.env.BASE_PATH || ''
 /**
  * When using Authorization code grant flow,
  * clientOAuth2 Library uses
@@ -40,6 +40,7 @@ app.use(cookieParser())
 app.get('/', (req, res) => {
   res.render('landing-page.html', {
     subject: APP_NAME,
+    basePath: BASE_PATH
   })
 })
 
