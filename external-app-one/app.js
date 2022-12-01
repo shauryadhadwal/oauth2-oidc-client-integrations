@@ -7,11 +7,16 @@ dotenv.config()
 const path = require('path')
 const PORT = 5001
 const APP_NAME = process.env.APP_NAME || 'external-app-one'
+const BASE_PATH = process.env.BASE_PATH || ''
+const AUDIENCE = process.env.AUDIENCE || 'http://localhost:4001 http://127.0.0.1:4001'
 const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
+const SERVER_HOSTED_URI = process.env.SERVER_HOSTED_URI
+const REDIRECT_URI = SERVER_HOSTED_URI ? `SERVER_HOSTED_URI${BASE_PATH}/callback` : `http://127.0.0.1:${PORT}/callback`
+const POST_LOGOUT_URI = SERVER_HOSTED_URI ? `SERVER_HOSTED_URI${BASE_PATH}` : `http://127.0.0.1:${PORT}`
+
 app.set('views', path.join(__dirname, 'views'))
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
-const BASE_PATH = process.env.BASE_PATH || ''
 /**
  * When using Authorization code grant flow,
  * clientOAuth2 Library uses
@@ -23,7 +28,7 @@ const oauth2Client = new clientOAuth2({
   clientSecret: CLIENT_SECRET,
   accessTokenUri: `${oauthServerApi}/oauth2/token`,
   authorizationUri: `${oauthServerApi}/oauth2/auth`,
-  redirectUri: process.env.REDIRECT_URI || `http://127.0.0.1:${PORT}/callback`,
+  redirectUri: REDIRECT_URI,
   scopes: ['openid offline'],
   state: 'randomly-generated-everytime',
 })
@@ -31,7 +36,7 @@ const oauth2Client = new clientOAuth2({
 const defaultTokenOpts = () => ({
   secure: true,
   path: '/',
-  domain: '127.0.0.1',
+  domain: SERVER_HOSTED_URI || '127.0.0.1',
   sameSite: 'Lax',
 })
 
@@ -48,11 +53,8 @@ app.get('/login', (req, res) => {
   // Audience is the trusted app one which has default 4001 port
   const uri = oauth2Client.code.getUri({
     query: {
-      audience: 'https://localhost:4001 https://127.0.0.1:4001',
-    },
-    headers: {
-      'User-Agent': 'macbook',
-    },
+      audience: AUDIENCE,
+    }
   })
   res.redirect(uri)
 })
@@ -65,8 +67,7 @@ app.get('/login', (req, res) => {
 app.get('/logout', (req, res) => {
   const idToken = req.cookies[`${APP_NAME}_id_token`]
   const accessToken = req.cookies[`${APP_NAME}_access_token`]
-  const postLogoutUri = `http://127.0.0.1:${PORT}`
-  const uri = `${oauthServerApi}/oauth2/sessions/logout?post_logout_redirect_uri=${postLogoutUri}&id_token_hint=${idToken}`
+  const uri = `${oauthServerApi}/oauth2/sessions/logout?post_logout_redirect_uri=${POST_LOGOUT_URI}&id_token_hint=${idToken}`
   res.redirect(uri)
 })
 
