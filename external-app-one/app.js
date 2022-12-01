@@ -90,6 +90,7 @@ app.get('/callback', (req, res) => {
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
           port: PORT,
+          basePath: BASE_PATH
         })
     })
     .catch(function (error) {
