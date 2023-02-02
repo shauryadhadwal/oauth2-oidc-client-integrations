@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <title><%= subject %></title>
+  </head>
+  <body>
+    <div class="container mt-2">
+      <h1>Landing page of <%= subject %></h1>
+      <p>
+        This is a trusted app with ory hydra which means it has acces to <strong>/admin</strong> route of ory hydra.
+      </p>
+    </div>
+    <div class="container mt-2">
+      <p>Available API End points</p>
+      <p>
+        <strong>/api/users</strong> Protected end-point. Requires ory generated access token to be sent in headers. 'Authorization' : 'access_token'
+      </p>
+      <p>
+        <strong>/api/cities</strong> Public end-point.
+      </p>
+    </div>
+  </body>
+</html>

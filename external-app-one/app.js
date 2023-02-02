@@ -8,10 +8,12 @@ const path = require('path')
 const PORT = 5001
 const APP_NAME = process.env.APP_NAME || 'external-app-one'
 const BASE_PATH = process.env.BASE_PATH || ''
-const AUDIENCE = process.env.AUDIENCE || 'http://localhost:4001 http://127.0.0.1:4001'
+const AUDIENCE = process.env.AUDIENCE || 'trusted-app-one'
 const oauthServerApi = process.env.OAUTH_SERVER_API || 'http://127.0.0.1:4444'
 const SERVER_HOSTED_URI = process.env.SERVER_HOSTED_URI
-const REDIRECT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}/callback` : `http://127.0.0.1:${PORT}/callback`
+const REDIRECT_URI = SERVER_HOSTED_URI
+  ? `${SERVER_HOSTED_URI}${BASE_PATH}/callback`
+  : `http://127.0.0.1:${PORT}/callback`
 const POST_LOGOUT_URI = SERVER_HOSTED_URI ? `${SERVER_HOSTED_URI}${BASE_PATH}` : `http://127.0.0.1:${PORT}`
 const DOMAIN_FOR_COOKIES = process.env.DOMAIN_FOR_COOKIES || '127.0.0.1'
 
@@ -46,7 +48,7 @@ app.use(cookieParser())
 app.get('/', (req, res) => {
   res.render('landing-page.html', {
     subject: APP_NAME,
-    basePath: BASE_PATH
+    basePath: BASE_PATH,
   })
 })
 
@@ -55,7 +57,7 @@ app.get('/login', (req, res) => {
   const uri = oauth2Client.code.getUri({
     query: {
       audience: AUDIENCE,
-    }
+    },
   })
   res.redirect(uri)
 })
@@ -77,8 +79,7 @@ app.get('/callback', (req, res) => {
   // Now exchange code for tokens
   console.info(`Original Url: ${req.originalUrl}`)
   oauth2Client.code
-    .getToken(`${BASE_PATH}${req.originalUrl}`, {
-    })
+    .getToken(`${BASE_PATH}${req.originalUrl}`, {})
     .then(function (user) {
       return res
         .cookie(APP_NAME + '_access_token', user.accessToken, defaultTokenOpts())
@@ -90,7 +91,7 @@ app.get('/callback', (req, res) => {
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
           port: PORT,
-          basePath: BASE_PATH
+          basePath: BASE_PATH,
         })
     })
     .catch(function (error) {

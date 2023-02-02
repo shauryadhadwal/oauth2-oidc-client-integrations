@@ -1,8 +1,6 @@
 {
 	"client_id": "external-app-one",
 	"client_name": "external-app-one",
-  "client_secret": "RoHxFPJtvvLJoar2whfjOEIvQK",
-  "description": "demo app",
 	"redirect_uris": [
       "http://127.0.0.1:5001/callback"
     ],
@@ -10,17 +8,16 @@
       "http://127.0.0.1:5001"
     ],
 	"grant_types": [
+      "implicit",
       "authorization_code",
       "refresh_token"
     ],
 	"response_types": [
       "code",
       "token",
-      "id_token",
-      "code id_to ken",
-      "token id_token"
+      "id_token token"
     ],
-	"scope": "offline openid profile",
-	"audience": ["trusted-app-one"],
-	"token_endpoint_auth_method": "client_secret_basic"
+	"scope": "offline openid",
+	"audience": [],
+	"token_endpoint_auth_method": "none"
 }
